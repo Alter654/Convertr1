@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,52 +9,93 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ConverterApp
-    // This program was written by Gail Mosdell
-    // It forms the base of a converter program for the OS-Assessment Two for Cert IV
-    // Date : February 2017
+
 {
     public partial class frm_Main : Form
     {
-        public frm_Main()
+        public frm_Main()                                                   // this is where the calculations happen
         {
             InitializeComponent();
         }
 
         // Global Variables and Constants
-        double dbl_UofM, dbl_Convert;
+        double dbl_UofM, dbl_Convert;                                       // created variables and constants
+        double dbl_UoMf;
+        const double CM_TO_INCH = 0.3937;
+        const double M_TO_FEET = 3.28084;
+        const double K_TO_MILES = 0.621371;
 
         private void btn_Exit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Application.Exit();                                             // exit button
         }
 
-        private void btn_CM_to_Inches_Click(object sender, EventArgs e)
+        private void btn_CM_to_Inches_Click(object sender, EventArgs e)      // Centermeters to inches button convertor
         {
-            const double CM_TO_INCH = 0.3937;
            
+
+
             // validate user entry and convert to a double
 
-            if ( double.TryParse(txt_UnitOfMeasure.Text, out dbl_UofM))
+            if (double.TryParse(txt_UnitOfMeasure.Text, out dbl_UofM))          
             {
-                MessageBox.Show("A numeric must be entered. Please re-enter the value.");
+
+                if (double.TryParse(txt_UnitOfMeasure.Text, out dbl_UofM))            // Centermeters to inches button calcultion
+                    dbl_Convert = dbl_UofM * CM_TO_INCH;
+                txt_Convert.Text = dbl_Convert.ToString();
+                lbl_Display.Text = txt_UnitOfMeasure.Text + " centimetres is converted to ";
+                lbl_Convert.Text = " inches.";
+
+               
+            }
+            else
+            {
+               
                 txt_UnitOfMeasure.Clear();
                 txt_UnitOfMeasure.Focus();
                 txt_Convert.Clear();
                 lbl_Convert.Text = "";
                 lbl_Display.Text = "";
-            }
-            else
+
+            } 
+            
+            
+
+            
+        }
+
+        private void frm_Main_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_KILO_TO_MILES_Click(object sender, EventArgs e)
+        {
+            const double K_TO_Miles = 0.621371;
+            if (double.TryParse(txt_UnitOfMeasure.Text, out dbl_UoMf))
             {
-                dbl_Convert = dbl_UofM * CM_TO_INCH;
+                dbl_Convert = dbl_UoMf * K_TO_Miles;
                 txt_Convert.Text = dbl_Convert.ToString();
-                lbl_Display.Text = txt_UnitOfMeasure.Text + " centimetres is converted to ";
-                lbl_Convert.Text = " inches.";
+                lbl_Display.Text = txt_UnitOfMeasure.Text + " Kilometers is converted to ";
+                lbl_Convert.Text = " Miles.";
+
             }
         }
 
         private void btn_M_to_Feet_Click(object sender, EventArgs e)
         {
-            // Create Code for this procedure
+            const double M_TO_FEET = 3.28084;
+            if (double.TryParse(txt_UnitOfMeasure.Text, out dbl_UoMf))                  // meters to feet calculation
+                
+            {
+                dbl_Convert = dbl_UoMf * M_TO_FEET;
+                txt_Convert.Text = dbl_Convert.ToString();
+                lbl_Display.Text = txt_UnitOfMeasure.Text + " Meters is converted to ";
+                lbl_Convert.Text = " Feet.";
+                
+            }
         }
     }
 }
+        
+    
